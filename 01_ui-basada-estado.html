@@ -28,7 +28,17 @@
 
     }
 
+    // Hay que tener un mecanismo que me genere esa interfaz basada en el estado es decir un template HTML
+    // Template UI
+    // Esto va a interactuar con las listas que tiene el estado. Y por cada elemento que tenga me va a generar una li
+    const template = () => {
+      // Hacemos una validación
+      // Si el estado (state) en su parametro (todolist) su longitud (length) es menor a 1 (< 1)
+      if (state.todoList.length < 1) {
+        return `<p><em>No hay tareas por hacer</em></p>`;
+      }
 
+    }
 
     d.addEventListener('submit', (e) => {
       if (!e.target.matches('#todo-form')) return false;
