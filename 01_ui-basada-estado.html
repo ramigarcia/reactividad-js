@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manipulación Manual del DOM</title>
+  <title>Interfaz basada en el Estado</title>
 </head>
 
 <body>
   <!-- IMPORTANTE ESTA MANIPULACIÓN DEL DOM NO ES REACTIVA -->
-  <h1>Manipulación Manual del DOM</h1>
+  <h1>Interfaz basada en el Estado</h1>
   <form id="todo-form">
     <input type="text" placeholder="Tarea por hacer" id="todo-item">
     <input type="submit" value="Agregar">
@@ -20,6 +20,15 @@
     const d = document,
       $item = d.getElementById('todo-item'),
       $list = d.getElementById('todo-list');
+
+    // Creando la variable del estado
+    // Generalmente es un objeto, donde por cada atributo que tenga este objeto es cada uno de los estados que queremos controlar
+    const state = {
+      todoList: [],
+
+    }
+
+
 
     d.addEventListener('submit', (e) => {
       if (!e.target.matches('#todo-form')) return false;
