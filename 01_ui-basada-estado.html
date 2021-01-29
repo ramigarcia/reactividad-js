@@ -37,7 +37,11 @@
       if (state.todoList.length < 1) {
         return `<p><em>No hay tareas por hacer</em></p>`;
       }
+      // Si tiene mas de un elemento debemos renderizar cada uno de esos elementos del array en li de HTML
+      // .map() es uno de los metodos funcionales que tienen los array, que se basa en un arreglo para generar otro
+      let todos = state.todoList.map(item => `<li>${item}</li>`);
 
+      return todos;
     }
 
     d.addEventListener('submit', (e) => {
