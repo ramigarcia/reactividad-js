@@ -17,8 +17,7 @@
   <h2>Lista de tareas</h2>
   <ul id="todo-list"></ul>
   <script>
-    const d = document,
-      $item = d.getElementById('todo-item');
+    const d = document;
     // Creando la variable del estado
     // Generalmente es un objeto, donde por cada atributo que tenga este objeto es cada uno de los estados que queremos controlar
     const state = {
@@ -38,7 +37,7 @@
       // Si tiene mas de un elemento debemos renderizar cada uno de esos elementos del array en li de HTML
       // .map() es uno de los metodos funcionales que tienen los array, que se basa en un arreglo para generar otro
       // Esta función template() no va a devolver una <li /> por cada item que tenga el estado de nuestra aplicación
-      let todos = state.todoList.map(item => `<li>${item}</li>`);
+      let todos = state.todoList.map(item => `<li>${item}</li>`).join('');
 
       return todos;
     }
@@ -59,15 +58,20 @@
       if (!e.target.matches('#todo-form')) return false;
 
       e.preventDefault('');
-      // Agregar item a la Lista
-      let $li = d.createElement('li');
-      $li.textContent = $item.value;
-      // Esta es la parte que se conoce como el renderizado o pintado de la interfaz
-      $list.appendChild($li);
+      const $item = d.getElementById('todo-item');
+      // Verificamos si el elemento no existe
+      if (!$item) return;
+
+      // Si existe
+      // Actualizar el State y la UI
+      state.todoList.push($item.value)
+      // Y para que la interfaz se recargue volvemos a ejecutar render
+      render();
 
       // Limpiar el input
       $item.value = '';
       $item.focus();
+
     })
   </script>
 </body>
