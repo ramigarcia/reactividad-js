@@ -46,7 +46,10 @@
     const render = () => {
       console.log(state);
       const $list = d.getElementById('todo-list');
-
+      // Verificamos si el elemento no existe en el DOM
+      if (!$list) return;
+      // Si existe, al elemento list le colocamos el contenido de lo que tenemos en nuestra función template()
+      $list.innerHTML = template()
     }
 
     d.addEventListener('submit', (e) => {
