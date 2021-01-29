@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interfaz basada en el Estado</title>
+  <title>Reactividad del Estado</title>
 </head>
 
 <body>
-  <h1>Interfaz basada en el Estado</h1>
+  <h1>Reactividad del Estado</h1>
+  <!-- PARA VOLVER NUESTRO ESTADO REACTIVO TENEMOS QUE EVITAR MANIPULARLO DIRECTAMENTE -->
   <form id="todo-form">
     <input type="text" placeholder="Tarea por hacer" id="todo-item">
     <input type="submit" value="Agregar">
@@ -49,6 +50,19 @@
       if (!$list) return;
       // Si existe, al elemento list le colocamos el contenido de lo que tenemos en nuestra función template()
       $list.innerHTML = template()
+    }
+
+    // Actualizar el State de forma Reactiva
+    // Nuestro setState va a recibir un (objeto) y va a recorrer cada una de las llaves de este objeto y la que coincida con alguna llave del state original ahi es donde la va a asignar
+    const setState = (objeto) => {
+      for (let key in objeto) {
+        // El metodo hasOwnProperty evalua si una llave existe dentro de un objeto
+        if (state.hasOwnProperty(key)) {
+          state[key] = objeto[key];
+        }
+      }
+
+      render()
     }
 
     d.addEventListener('DOMContentLoad', render())
