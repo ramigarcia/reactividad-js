@@ -37,6 +37,7 @@
       }
       // Si tiene mas de un elemento debemos renderizar cada uno de esos elementos del array en li de HTML
       // .map() es uno de los metodos funcionales que tienen los array, que se basa en un arreglo para generar otro
+      // Esta función template() no va a devolver una <li /> por cada item que tenga el estado de nuestra aplicación
       let todos = state.todoList.map(item => `<li>${item}</li>`);
 
       return todos;
@@ -51,6 +52,8 @@
       // Si existe, al elemento list le colocamos el contenido de lo que tenemos en nuestra función template()
       $list.innerHTML = template()
     }
+
+    d.addEventListener('DOMContentLoad', render())
 
     d.addEventListener('submit', (e) => {
       if (!e.target.matches('#todo-form')) return false;
