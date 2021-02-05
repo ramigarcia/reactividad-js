@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librería de componentes con estado</title>
+</head>
+
+<body>
+  <h1>Librería de componentes con estado</h1>
+  <form id="todo-form">
+    <input type="text" placeholder="Tarea por hacer" id="todo-item">
+    <input type="submit" value="Agregar">
+  </form>
+  <h2>Lista de tareas</h2>
+  <ul id="todo-list"></ul>
+  <script src="./Component.js"></script>
+  <script>
+    const d = document;
+
+    const app = new Component({
+      el: '#todo-list',
+      data: {
+        todoList: []
+      },
+      template: function (props) {
+        if (props.todoList.length < 1) {
+          return `<p><em>No hay tareas por hacer</em></p>`;
+        }
+        let todos = props.todoList.map(item => `<li>${item}</li>`).join('');
+
+        return todos;
+      }
+    })
+
+    // Creando la variable del estado
+    // Generalmente es un objeto, donde por cada atributo que tenga este objeto es cada uno de los estados que queremos controlar
+
+    // Hay que tener un mecanismo que me genere esa interfaz basada en el estado es decir un template HTML
+    // Template UI
+    // Esto va a interactuar con las listas que tiene el estado. Y por cada elemento que tenga me va a generar una li
+
+    // Actualizar el State de forma Reactiva
+    // Nuestro setState va a recibir un (objeto) y va a recorrer cada una de las llaves de este objeto y la que coincida con alguna llave del state original ahi es donde la va a asignar
+
+
+    // Obtenemos una copia inmutable del State
+    // El metodo .parse() me permite transformar una cadena de texto que este formato JSON a Objeto JavaScrip (Solo si esta en formato JSON)
+    // El metodo JSON.stringgify() hace lo contrario a .parse(). De un Objeto JavaScript lo combierte a una cadena de texto en formato JSON
+
+    // Este metodo no permite obtener el estado anterior antes de actualizar el estado siguiente
+    // const getState = () => JSON.parse(JSON.stringify(template.data))
+
+    // Lo que ocurre arriba es medio raro pero es esto:
+    // getState ejecuta una arrow function que con el metodo .stringify() obtiene el (state) y lo transforma a formato JSON volviendolo un independiente.
+    // Después el .parse() transforma a ese state que obtuvimos a un objeto javascript individual
+
+    d.addEventListener('DOMContentLoaded', app.render())
+
+    // Agregando valores por default
+    app.setState({
+      todoList: ['tarea1', 'tarea2', 'tarea3']
+    })
+
+    d.addEventListener('submit', (e) => {
+      if (!e.target.matches('#todo-form')) return false;
+
+      e.preventDefault('');
+      const $item = d.getElementById('todo-item');
+      // Verificamos si el elemento no existe
+      if (!$item) return;
+
+      // Si existe
+      // Actualizar el State de forma reactiva
+      const lastState = app.getState()
+      lastState.todoList.push($item.value)
+      app.setState({ todoList: lastState.todoList })
+      // Limpiar el input
+      $item.value = '';
+      $item.focus();
+
+    })
+  </script>
+</body>
+
+</html>
